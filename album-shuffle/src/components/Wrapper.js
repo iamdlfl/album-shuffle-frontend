@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@mui/material';
 
 import { Navbar } from './Navbar';
 import { ShuffleList } from './ShuffleList';
@@ -24,7 +25,7 @@ export const Wrapper = () => {
             {!data.logged_in && (
                 <>
                 <p>You are not logged in.</p>
-                <a href={loginUrl}>Login</a>
+                <Button variant="outlined" href={loginUrl}>Login</Button>
                 </>
             )}
             {data.logged_in && (

@@ -1,6 +1,15 @@
 import React from 'react';
 import { PlaylistCard } from './PlaylistCard';
 import { useGetPlaylists } from '../hooks/useGetPlaylists';
+import { Button, Box } from '@mui/material';
+import { server } from '../hooks/serverName';
+
+const listBoxSx = () => ({
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+});
 
 export const ShuffleList = () => {
     const { data, error, isError, isLoading } = useGetPlaylists();
@@ -15,17 +24,23 @@ export const ShuffleList = () => {
         return <p>{data.error.message}</p>
     }
 
+    const logout = server + "/logout"
+
+
     return(
         <>
         <h1>Shuffle List</h1>
+        <Button variant="outlined" href={logout}>Logout</Button>
         {data && (
-            <ul>
+            <Box sx={listBoxSx}>
             {data.items.map(function(val, idx) {
                 // handle image url
                 let imageUrl;
                 if (val.images.length > 1 ) {
                     imageUrl = val.images[1].url;
-                } 
+                } else {
+                    imageUrl = "/pic.jpg";
+                }
 
                 // handle description
                 let description;
@@ -43,7 +58,7 @@ export const ShuffleList = () => {
                             playlistId={val.id}
                             playlistDescription={description}/>
             })}
-            </ul>
+            </Box>
         )}
         </>
     )
